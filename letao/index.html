@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- 设置视口 -->
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>乐淘电商</title>
+    <link rel="stylesheet" href="./lib/mui/css/mui.css" />
+    <link rel="stylesheet" href="./lib/fa/css/font-awesome.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+  </head>
+
+  <body>
+    <div class="lt_container" id="app">
+      <div class="lt_header">
+        <a href="index.html" class="icon_left"><i class="fa fa-home"></i></a>
+        <h3>乐淘云购</h3>
+        <a href="search.html" class="icon_right"
+          ><i class="fa fa-search"></i
+        ></a>
+      </div>
+
+      <div class="lt_main">
+        <router-view></router-view>
+      </div>
+
+      <div class="lt_footer">
+        <ul>
+          <li>
+            <router-link to="./home">
+              <i class="fa fa-home"></i>
+              <p>首页</p>
+            </router-link>
+
+            <!-- class="current"  -->
+          </li>
+          <li>
+            <router-link to="/category">
+              <i class="fa fa-bars"></i>
+              <p>分类页</p>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/cart">
+              <i class="fa fa-shopping-cart"></i>
+              <p>购物车</p>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/user">
+              <i class="fa fa-user"></i>
+              <p>用户中心</p>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script>
+      // 首页的配置项
+      const Home = {
+        template: `<div>我是首页</div>`
+      }
+      // 分类页的配置项
+      const Category = {
+        template: `<div>
+        <router-link to='/category'>去默认页</router-link>
+        <router-link to='/category/first'>第一页</router-link>
+        <router-link to='/category/third'>第二页</router-link>
+        <router-view></router-view>
+        </div>`
+      }
+      // 购物车的配置项
+      const Cart = {
+        template: `<div>我是购物车</div>`
+      }
+      // 用户的配置项
+      const User = {
+        template: `<div>
+         <router-link to='/user'>去默认页</router-link>
+        <router-link to='/user/login'>登录页</router-link>
+        <router-link to='/user/userlogin'>注册页</router-link>
+        <router-view></router-view>
+        </div>`
+      }
+
+      // 分类页的配置项 第一个页面
+      const First = {
+        template: `<div>我是第一个列表页</div>`
+      }
+      // 分类页的配置项 第二个页面
+      const Third = {
+        template: `<div>我是第二个列表页</div>`
+      }
+      // 分类页的配置项 默认页面页面
+      const Default = {
+        template: `<div>我是默认页</div>`
+      }
+
+      // 用户页登录的配置页,
+      const Login = {
+        template: `<div>
+        我是登录页</div>`
+      }
+      // 用户页登录的配置页,
+      const Userlogin = {
+        template: `<div>
+        我是注册页</div>`
+      }
+
+      const router = new VueRouter({
+        routes: [
+          {
+            path: '/',
+            redirect: '/home'
+          },
+          {
+            path: '/home',
+            component: Home
+          },
+          {
+            path: '/category',
+            component: Category,
+            children: [
+              {
+                path: '',
+                component: Default
+              },
+              {
+                path: 'first',
+                component: First
+              },
+              {
+                path: 'third',
+                component: Third
+              }
+            ]
+          },
+          {
+            path: '/cart',
+            component: Cart
+          },
+          {
+            path: '/user',
+            component: User,
+            children: [
+              {
+                path: '',
+                component: Default
+              },
+              {
+                path: 'login',
+                component: Login
+              },
+              {
+                path: 'userlogin',
+                component: Userlogin
+              }
+            ]
+          }
+        ],
+        linkActiveClass: 'current'
+      })
+      // 需求: 基于路由, 实现单页切换的效果
+      const vm = new Vue({
+        el: '#app',
+        router
+      })
+      //配置嵌套路由，在路由中用children配置
+    </script>
+  </body>
+</html>

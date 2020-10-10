@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="list">首页</button>
+      <button @click="login">登录页</button>
+      <button @click="user">用户页</button>
+      <button @click="product">尾页</button>
+      <router-view> </router-view>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+      const router = new VueRouter({
+        routes: [
+          { path: '/', redirect: '/home' },
+          {
+            path: '/home',
+            component: {
+              template: `<div>我是首页</div>`
+            }
+          },
+          {
+            path: '/login',
+            component: {
+              template: `<div>我是登录页</div>`
+            }
+          },
+          {
+            path: '/user/:id',
+            component: {
+              template: `<div>我是用户页 {{$route.params.id}}</div>`
+            }
+          },
+          {
+            path: '/product',
+            component: {
+              template: `<div>我是尾页{{$route.query.name}}</div>`
+            }
+          }
+        ]
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        router,
+        methods: {
+          list() {
+            this.$router.push('/home')
+          },
+          login() {
+            this.$router.push('/login')
+          },
+          user() {
+            this.$router.push('/user/100')
+          },
+          product() {
+            this.$router.push('/product?name=zs')
+          }
+        }
+      })
+      // 导航
+      // 1.声明式导航 通过router-link完成跳转，相当于a链接跳转
+      //2.编程式导航 通过 注册事件 然后通过在事件中通过2this.$router(路径名)完成跳转 相当于 location.href 完成跳转
+
+      // this.$router与this.$route的区别
+
+      // this.$router 整个大的路由实例对象,一个应用就一个
+      // 一般用于跳转路由 this.$router.push(路径)
+      // 在模块化开发中，不是所有的地方，都能直接访问到router
+      //如果想要直接访问到路由实例，就需要通过this.$router
+
+      // this.$route 当前的路由相关信息对象（路径，参数）
+
+      编程式导航是通过
+    </script>
+  </body>
+</html>

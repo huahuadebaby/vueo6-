@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <router-link to="/list">列表页</router-link>
+      <router-link to="/login">登录页</router-link>
+      <router-link to="/index">尾页</router-link>
+      <router-view></router-view>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+      const list = {
+        template: '<div>我是一个列表页</div>'
+      }
+      const login = {
+        template: '<div>我是一个登录页</div>'
+      }
+      const index = {
+        template: '<div>我是一个尾页</div>'
+      }
+      const router = new VueRouter({
+        routes: [
+          {
+            path: '/',
+            redirect: '/list'
+          },
+          {
+            path: '/list',
+            component: list
+          },
+          {
+            path: '/login',
+            component: login
+          },
+          {
+            path: '/index',
+            component: index
+          }
+        ]
+      })
+      const vm = new Vue({
+        el: '#app',
+        router
+      })
+    </script>
+  </body>
+</html>
